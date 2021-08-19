@@ -1,7 +1,27 @@
+import { FaGithub } from 'react-icons/fa'
+import { FiX } from 'react-icons/fi'
+
+import styles from './styles.module.scss'
+
 export function SignInButton(){
-  return(
-    <div>
-      <button type="button"></button>
-    </div>
+  const isUserLoggeIn = true;
+
+  return isUserLoggeIn ? (
+    <button
+     type="button"
+     className={styles.signInButton}
+    >
+      <FaGithub color="#04d361" />
+      Flavio Santos
+      <FiX color="#737380" className={styles.closeIcon}/>
+    </button>
+  ) : (
+    <button
+     type="button"
+     className={styles.signInButton}
+    >
+      <FaGithub color="#eba417" />
+      Sign in with Github
+    </button>
   )
 }
