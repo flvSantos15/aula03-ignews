@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
-          <span> 👏 Hey, welcome</span>
+          <span> 👏 Hey, welcome client</span>
           <h1>New about the <span>React</span> world</h1>
           <p>Get acess to all the publications<br/>
             <span>for $9.90 month</span>
