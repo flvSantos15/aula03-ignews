@@ -36,8 +36,8 @@ export default function Post({ post }: PostProps) {
   )
 }
 
-export const getServerSidePros: GetServerSideProps = async ({req, params}) => {
-  const session = await getSession({ req})
+export const getServerSideProps: GetServerSideProps = async ({req, params}) => {
+  const session = await getSession({ req })
   const { slug } = params
 
   // if(!session){}
@@ -45,7 +45,6 @@ export const getServerSidePros: GetServerSideProps = async ({req, params}) => {
   const prismic = getPrismicClient(req)
 
   const response = await prismic.getByUID('publication', String(slug), {})
-  console.log(response)
 
   const post = {
     slug,
