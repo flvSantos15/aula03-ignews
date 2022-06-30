@@ -28,6 +28,7 @@ export default function Home({ product }: HomeProps) {
           </p>
           <SubscribeButton />
         </section>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/avatar.svg" alt="Girl Coding" />
       </main>
     </>
