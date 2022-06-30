@@ -9,11 +9,11 @@ import styles from './home.module.scss'
 interface HomeProps {
   product: {
     priceId: string;
-    amount: number;
+    amount: string;
   }
 }
 
-export default function Home({product}: HomeProps) {
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -23,15 +23,15 @@ export default function Home({product}: HomeProps) {
         <section className={styles.hero}>
           <span> 👏 Hey, welcome</span>
           <h1>New about the <span>React</span> world</h1>
-          <p>Get acess to all the publications<br/>
+          <p>Get acess to all the publications<br />
             <span>for {product.amount} month</span>
           </p>
-          <SubscribeButton priceId={product.priceId}/>
+          <SubscribeButton />
         </section>
         <img src="/images/avatar.svg" alt="Girl Coding" />
       </main>
     </>
-    )
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps = async () => {
       currency: 'USD',
     }).format(price.unit_amount / 100,)
   }
-  return{
+  return {
     props: {
       product,
     },
