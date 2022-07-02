@@ -6,8 +6,8 @@ import styles from './styles.module.scss'
 
 export function SubscribeButton() {
   const { data: session } = useSession()
-  // const router = useRouter()
-  const { push } = useRouter()
+  const router = useRouter()
+  // const { push } = useRouter()
 
   async function handleSubscribe() {
     if (!session) {
@@ -16,8 +16,8 @@ export function SubscribeButton() {
     }
 
     if (session.activeSubscription) {
-      // router.push('/posts')
-      push('/posts')
+      router.push('/posts')
+      // push('/posts')
       return;
     }
 

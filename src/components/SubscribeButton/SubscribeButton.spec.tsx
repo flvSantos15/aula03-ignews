@@ -4,7 +4,12 @@ import { useRouter } from 'next/router'
 import { SubscribeButton } from '.'
 
 jest.mock('next-auth/react')
-jest.mock('next/router')
+// jest.mock('next/router')
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    push: jest.fn()
+  })
+}))
 
 describe('SubscribeButton Component', () => {
   it('renders corretly', () => {
@@ -49,7 +54,7 @@ describe('SubscribeButton Component', () => {
           name: 'Jon Doe',
           email: 'jon.doe@exemple.com'
         },
-        activeSubscriptio: 'fake-subcription',
+        activeSubscription: 'fake-subcription',
         expires: 'fake-expires'
       },
       status: 'authenticated'
