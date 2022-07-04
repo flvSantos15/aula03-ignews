@@ -4,7 +4,9 @@
   <h1 align="center">
 	  🚧  IgNews 🚀  🚧
   </h1>
-  <p align="center">🚀 It's a NewsLetter application</p><br/>
+  <p align="center">
+  	🚀 It's a NewsLetter application, where the user sees a preview of an article if he doesn't have subscription, which he can do with his github, and assign for a payment per month. After he is able to see and read all articles coming from a database.
+  </p><br/>
 </div>
 
 # Tabela de conteúdos
