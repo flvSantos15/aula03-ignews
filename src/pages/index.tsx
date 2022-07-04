@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import { SubscribeButton } from '../components/SubscribeButton'
 import { stripe } from '../services/stripe'
 
@@ -28,8 +29,7 @@ export default function Home({ product }: HomeProps) {
           </p>
           <SubscribeButton />
         </section>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/avatar.svg" alt="Girl Coding" />
+        <Image src="/images/avatar.svg" alt="Girl Coding" />
       </main>
     </>
   )

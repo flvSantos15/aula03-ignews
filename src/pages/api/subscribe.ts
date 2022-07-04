@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse} from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { fauna } from '../../services/fauna'
 import { stripe } from '../../services/stripe'
 
@@ -13,9 +13,9 @@ type User = {
   }
 }
 
-const subscribeAction =  async (req: NextApiRequest, res: NextApiResponse) => {
-  if(req.method === 'POST'){
-    const session = await getSession({req})
+const subscribeAction = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'POST') {
+    const session = await getSession({ req })
 
     const user = await fauna.query<User>(
       q.Get(
@@ -28,7 +28,7 @@ const subscribeAction =  async (req: NextApiRequest, res: NextApiResponse) => {
 
     let customerId = user.data.stripe_customer_id
 
-    if(!customerId){
+    if (!customerId) {
       const stripeCustomer = await stripe.customers.create({
         email: session.user.email,
         //metadata
@@ -52,15 +52,15 @@ const subscribeAction =  async (req: NextApiRequest, res: NextApiResponse) => {
       payment_method_types: ['card'],
       billing_address_collection: 'required',
       line_items: [
-        { price: 'price_1JRKnfDekcghkK4db39Ls3P4', quantity: 1}
+        { price: 'price_1JRKnfDekcghkK4db39Ls3P4', quantity: 1 }
       ],
       mode: 'subscription',
       allow_promotion_codes: true,
       success_url: process.env.STRIPE_SUCCESS_URL,
       cancel_url: process.env.STRIPE_CANCEL_URL
     })
-    return res.status(200).json({ sessionId: stripeCheckoutSession.id})
-  }else{
+    return res.status(200).json({ sessionId: stripeCheckoutSession.id })
+  } else {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method not allowed')
   }
