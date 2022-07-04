@@ -7,7 +7,7 @@ import { getPrismicClient } from '../../services/prismic'
 
 import styles from './styles.module.scss'
 
-type Post = {
+export type Post = {
   slug: string;
   title: string;
   excerpt: string;
@@ -15,11 +15,11 @@ type Post = {
 }
 
 interface PostsProps {
-  posts:  Post[]
+  posts: Post[]
 }
 
-export default function Posts({posts}: PostsProps){
-  return(
+export default function Posts({ posts }: PostsProps) {
+  return (
     <>
       <Head>
         <title>Posts | Ignews</title>
@@ -27,8 +27,8 @@ export default function Posts({posts}: PostsProps){
 
       <main className={styles.container}>
         <div className={styles.posts}>
-          { posts.map(post => (
-            <Link href={`/posts/${post.slug}`} key={post.slug}>
+          {posts.map(post => (
+            <Link key={post.slug} href={`/posts/${post.slug}`}>
               <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const response = await prismic.query([
     Prismic.predicates.at('document.type', 'publication')
-  ],{
+  ], {
     fetch: ['publication.title', 'publication.content'],
     pageSize: 100,
   })
@@ -58,15 +58,15 @@ export const getStaticProps: GetStaticProps = async () => {
       title: RichText.asText(post.data.title),
       excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
       updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
-         day: '2-digit',
-         month: 'long',
-         year: 'numeric'
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
       })
     }
   })
 
   return {
-    props : {
+    props: {
       posts
     }
   }

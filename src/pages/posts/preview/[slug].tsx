@@ -5,30 +5,31 @@ import { RichText } from "prismic-dom"
 import { getPrismicClient } from "../../../services/prismic"
 
 import styles from "../post.module.scss"
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 
-interface PostPreviewProps {
- post: {
-   slug: string;
-   title: string;
-   content: string;
-   updatedAt: string;
- }
+export interface PostPreviewProps {
+  post: {
+    slug: string;
+    title: string;
+    content: string;
+    updatedAt: string;
+  }
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   useEffect(() => {
-    if(session?.activeSubscription){
+    if (session?.activeSubscription) {
       router.push(`/posts/${post.slug}`)
     }
-  }, [session])
-  
-  return(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, post])
+
+  return (
     <>
       <Head>
         <title>{post.title} | Ignews</title>
@@ -40,12 +41,12 @@ export default function PostPreview({ post }: PostPreviewProps) {
           <time>{post.updatedAt}</time>
           <div
             className={`${styles.postContent} ${styles.previewContent}`}
-            dangerouslySetInnerHTML={{__html: post.content}}
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
           <div className={styles.continueReading}>
             Wanna continue reading?
             <Link href='/'>
-              <a>Subscribe now🤗</a>
+              <a>Subscribe Now</a>
             </Link>
           </div>
         </article>
@@ -61,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params
 
   const prismic = getPrismicClient()
