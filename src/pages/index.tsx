@@ -29,7 +29,15 @@ export default function Home({ product }: HomeProps) {
           </p>
           <SubscribeButton />
         </section>
-        <Image src="/images/avatar.svg" alt="Girl Coding" />
+        <div className={styles.img}>
+          <Image
+            src="/images/avatar.svg"
+            width='400px'
+            height='500px'
+            layout='intrinsic'
+            alt="Girl Coding"
+          />
+        </div>
       </main>
     </>
   )
