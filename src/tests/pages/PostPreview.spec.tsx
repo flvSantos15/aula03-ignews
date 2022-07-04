@@ -14,6 +14,7 @@ const posts = {
 }
 
 jest.mock('next-auth/react')
+jest.mock('../../services/prismic')
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn()
@@ -78,7 +79,9 @@ describe('PostPreview page', () => {
       })
     } as any)
 
-    const response = await getStaticProps({ params: { slug: 'my-new-post' } })
+    const response = await getStaticProps({
+      params: { slug: 'my-new-post' }
+    })
 
     expect(response).toEqual(
       expect.objectContaining({
@@ -86,7 +89,7 @@ describe('PostPreview page', () => {
           post: {
             slug: 'my-new-post',
             title: 'My New Post',
-            excerpt: 'Post excerpt',
+            content: '<p>Post content</p>',
             updatedAt: '01 de abril de 2021'
           }
         }
