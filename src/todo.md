@@ -1,0 +1,3 @@
+- Adicionar internacionalização i18n (Ingles e Portugues)
+- Aplicar SEO
+- Aplicar acessibilidade a11y
